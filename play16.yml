@@ -1,0 +1,11 @@
+---
+- name: play to modify /etc/hosts
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks:
+   - name: Task edit hosts file
+     lineinfile:
+      path: /etc/hosts
+      line: "192.168.29.100 server29.alclabs.in \n192.168.29.200 desktop29.alclabs.in"
+...
