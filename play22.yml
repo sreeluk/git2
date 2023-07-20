@@ -1,0 +1,18 @@
+---
+- name: copy all programs to new directory
+  hosts: localhost
+  remote_user: ansible
+  become: true
+  tasks:
+   - name: create directory
+     file:
+      path: /home/ansible/progdir
+      state: directory
+      mode: 0777
+      owner: root
+      group: root
+   - name: copy all programs into dir
+     copy:
+      src: /home/ansible/play*.yml
+      dest: /home/ansible/progdir/
+...

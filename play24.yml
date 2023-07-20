@@ -1,0 +1,52 @@
+---
+- name: acl module
+  hosts: devteam
+  become: yes
+  remote_user: ansible
+  tasks:
+   - name:
+     user:
+      name: rama
+      uid: 8999
+      password: rama123
+      comment: "create rama user"
+      state: present
+   - name:
+     user:
+      name: latha
+      uid: 8900
+      password: rama123
+      comment: "create rama user"
+      state: present
+   - name: create config file
+     file:
+       path: /home/ansible/new1.txt
+       state: touch
+       mode: 0644
+       owner: root
+       group: root
+   - name: enter lines to file   
+     lineinfile:
+      path: /home/ansible/new1.txt
+      line: " this is secure file \n any one can not see"
+   - name: Grant special permission to a file
+     acl:
+      path: /home/ansible/new1.txt
+      entity: rama     #entity means user or group name
+      etype: user      # type --- user,group,other
+      permissions: r    # permissions --- rwx
+      state: present    # absent ,present,query(recursive)
+ #- name: Removes acl from specific file
+    #acl:
+    # path: /home/ansible/new1.txt
+    # entity: rama
+    # etype: user
+    # state: absent
+   - name: Set acls latha user
+     acl:
+      path: /home/ansible/new1.txt
+      entity: latha
+      etype: user
+      permissions: rw-
+      state: present   
+...
