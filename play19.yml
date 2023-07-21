@@ -1,0 +1,21 @@
+---
+- name:  demonstrate replace module in ansible
+  hosts: localhost
+  become: true
+  remote_user: ansible
+  tasks: 
+   - name: create new text file
+     file:
+      path: /home/ansible/hostname1.txt
+      state: touch
+   - name: enter lines into the directory
+     lineinfile: 
+      path: /home/ansible/hostname1.txt
+      line: "mouni \nveera \nthiru"
+   - name: using replace module to replace the text
+     replace:
+      path: /home/ansible/hostname1.txt
+      regexp: mouni
+      replace: vishal
+      backup: yes
+...

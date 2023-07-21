@@ -1,0 +1,16 @@
+---
+- name: play to demonstrate lineinfile
+  hosts: localhost
+  become: yes
+  remote_user: ansible
+  tasks:
+   - name: insert a line before the given pattern matching text
+     lineinfile:
+      path: /etc/ssh/sshd_config
+      insertafter: ^PermitRootLogin
+      line: "#the above line enabled if the root user can login"
+      backup: yes
+      state: present
+      create: yes
+      #insertbefore: 
+...
