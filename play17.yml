@@ -1,0 +1,8 @@
+---
+- name: need to print text
+  hosts: localhost
+  tasks:
+   - name: print text using debug forn git local repository
+     debug:
+      msg: "hello there ......"
+...
